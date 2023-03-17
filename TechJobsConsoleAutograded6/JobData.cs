@@ -46,23 +46,31 @@ namespace TechJobsConsoleAutograded6
         public static List<Dictionary<string, string>> FindByValue(string value)
         {
             // load data, if not already loaded
+            LoadData();
+
             List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
 
             foreach (Dictionary<string, string> row in AllJobs)
             {
 
-                foreach (KeyValuePair<string, string> job in row) { }
-
-
-                //TODO: Make search case-insensitive
-                /*if (aValue.Contains(value))
+                foreach (string key in row.Keys)
                 {
-                    jobs.Add(row);
-                }*/
+                    string aValue = row[key];
+
+                    if (aValue.ToLower().Contains(value.ToLower()))
+                    {
+                        jobs.Add(row);
+
+                        // Finding one field in a job that matches is sufficient
+                        break;
+                    }
+                }
             }
 
             return jobs;
         }
+
+
 
         /**
          * Returns results of search the jobs data by key/value, using
